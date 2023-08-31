@@ -1,25 +1,35 @@
 // https://playground.babylonjs.com/
 
 const createScene =  () => {
+
+    // SCENE
     const scene = new BABYLON.Scene(engine);
 
-    /**** Set camera and light *****/
+    // CAMERA
     const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 15, new BABYLON.Vector3(0, 0, 0));
     camera.attachControl(canvas, true);
+
+    // LIGHT
     const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
     
+
+    // GROUND
     const ground = buildGround();
 
+
+    // DETACHED_HOUSE
     const detached_house = buildHouse(2);
     detached_house.rotation.y = -Math.PI / 16;
     detached_house.position.x = -6.8;
     detached_house.position.z = 2.5;
 
+    // SEMI_HOUSE
     const semi_house = buildHouse(4);
     semi_house .rotation.y = -Math.PI / 16;
     semi_house.position.x = -4.5;
     semi_house.position.z = 3;
 
+    // PLACES
     const places = []; //each entry is an array [house type, rotation, x, z]
     places.push([1, -Math.PI / 16, 0, 0 ]);
     places.push([2, -Math.PI / 16, 5, 0 ]);
@@ -115,7 +125,8 @@ const createScene =  () => {
     places.push([2, 15 * Math.PI / 16, -30, 45 ]);
     places.push([2, 15 * Math.PI / 16, -30, -45 ]);
     places.push([2, 15 * Math.PI / 16, 30, -45 ]);
-    //Create instances from the first two that were built 
+    
+    // VILLAGE 
     const houses = [];
     for (let i = 0; i < places.length; i++) {
         if (places[i][0] === 1) {
@@ -129,10 +140,18 @@ const createScene =  () => {
         houses[i].position.z = places[i][3];
     }
     
+
+
+
+
+
+
     return scene;
 }
 
 /******Build Functions***********/
+
+// GROUND
 const buildGround = () => {
     //color
     const groundMat = new BABYLON.StandardMaterial("groundMat");
@@ -142,6 +161,7 @@ const buildGround = () => {
     ground.material = groundMat;
 }
 
+// HOUSE
 const buildHouse = (width) => {
     const box = buildBox(width);
     const roof = buildRoof(width);
@@ -149,6 +169,8 @@ const buildHouse = (width) => {
     return BABYLON.Mesh.MergeMeshes([box, roof], true, false, null, false, true);
 }
 
+
+// GROUND
 const buildBox = (width) => {
     //texture
     const boxMat = new BABYLON.StandardMaterial("boxMat");
@@ -183,6 +205,7 @@ const buildBox = (width) => {
     return box;
 }
 
+// ROOF
 const buildRoof = (width) => {
     //texture
     const roofMat = new BABYLON.StandardMaterial("roofMat");
