@@ -675,9 +675,67 @@ const createScene =  () => {
 
 // LAMPS
 
+const buildLampLight = () => {
+    const lampLight = new BABYLON.SpotLight("lampLight", BABYLON.Vector3.Zero(), new BABYLON.Vector3(0, -10, 0), Math.PI, 1, scene);
+    lampLight.diffuse = BABYLON.Color3.Yellow();
+    return lampLight;
+}
 
 
 
+const buildLampShape = () =>{
+    const lampShape = [];
+    for(let i = 0; i < 20; i++) {
+        lampShape.push(new BABYLON.Vector3(Math.cos(i * Math.PI / 10), Math.sin(i * Math.PI / 10), 0));
+    }
+	lampShape.push(lampShape[0]); //close shape
+
+    return lampShape;
+}
+
+
+const buildLampPath = () => {
+    const lampPath = [];
+	lampPath.push(new BABYLON.Vector3(0, 0, 0));
+	lampPath.push(new BABYLON.Vector3(0, 10, 0));
+    for(let i = 0; i < 20; i++) {
+        lampPath.push(new BABYLON.Vector3(1 + Math.cos(Math.PI - i * Math.PI / 40), 10 + Math.sin(Math.PI - i * Math.PI / 40), 0));
+    }
+    lampPath.push(new BABYLON.Vector3(3, 11, 0));
+
+    return lampPath;
+}
+
+
+
+const buildLampBulb = () => {
+    const bulb = BABYLON.MeshBuilder.CreateSphere("bulb", {diameterX: 1.5, diameterZ: 0.8});
+    
+    const yellowMat = new BABYLON.StandardMaterial("yellowMat");
+    yellowMat.emissiveColor = BABYLON.Color3.Yellow();
+
+    bulb.material = yellowMat;
+    
+    bulb.position.x = 2;
+    bulb.position.y = 10.5;
+
+    
+
+    return bulb;
+}
+
+
+
+const buildLamp = (position) => {
+    const lamp = BABYLON.MeshBuilder.ExtrudeShape("lamp", {cap: BABYLON.Mesh.CAP_END, shape: buildLampShape(), path: buildLampPath(), scale: 0.5});
+	lamp.scaling = new BABYLON.Vector3(0.13, 0.13, 0.13);
+    lamp.position = position;
+    const lampBulb = buildLampBulb();
+    
+    lampBulb.parent = lamp;
+    lampLight.parent = bulb;
+    return lamp;
+}
 
 // GROUND
 
