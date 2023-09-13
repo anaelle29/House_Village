@@ -615,10 +615,11 @@ const createScene =  () => {
 
 
 
+    
     // LAMP //
 
-
-
+    const lamp1 = buildLamp(new BABYLON.Vector3(4, 0, 4))
+    /*
     const lampLight = new BABYLON.SpotLight("lampLight", BABYLON.Vector3.Zero(), new BABYLON.Vector3(0, -10, 0), Math.PI, 1, scene);
     lampLight.diffuse = BABYLON.Color3.Yellow();
 
@@ -653,7 +654,7 @@ const createScene =  () => {
     bulb.position.x = 2;
     bulb.position.y = 10.5;
 
-    lampLight.parent = bulb;
+    lampLight.parent = bulb;*/
 
 
 
@@ -676,7 +677,7 @@ const createScene =  () => {
 // LAMPS
 
 const buildLampLight = () => {
-    const lampLight = new BABYLON.SpotLight("lampLight", BABYLON.Vector3.Zero(), new BABYLON.Vector3(0, -10, 0), Math.PI, 1, scene);
+    const lampLight = new BABYLON.SpotLight("lampLight", BABYLON.Vector3.Zero(), new BABYLON.Vector3(0, -10, 0), Math.PI, 1);
     lampLight.diffuse = BABYLON.Color3.Yellow();
     return lampLight;
 }
@@ -733,9 +734,12 @@ const buildLamp = (position) => {
     const lampBulb = buildLampBulb();
     
     lampBulb.parent = lamp;
-    lampLight.parent = bulb;
+    buildLampLight().parent = lampBulb;
     return lamp;
 }
+
+
+
 
 // GROUND
 
