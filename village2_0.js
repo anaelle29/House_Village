@@ -16,6 +16,8 @@ const createScene =  () => {
     light.position = new BABYLON.Vector3(0, 50, -100);
     light.intensity = 1;
 
+    // Default intensity is 1. Let's dim the light a small amount
+    light.intensity = 0.7;
     
     // OMBRES
 
@@ -150,7 +152,7 @@ const createScene =  () => {
     // Speed
     particleSystem.minEmitPower = 0.2;
     particleSystem.maxEmitPower = 0.5;
-    particleSystem.updateSpeed = 0.001;
+    particleSystem.updateSpeed = 0.0045;
 
     // Start the particle system
     particleSystem.start();
@@ -593,7 +595,7 @@ const createScene =  () => {
         scene.beginAnimation(result.skeletons[0], 0, 100, true, 1.5);
 
         let distance = 0;
-        let step = 0.0015;
+        let step = 0.002;
         let p = 0;
 
         scene.onBeforeRenderObservable.add(() => {
@@ -704,6 +706,42 @@ const createScene =  () => {
     panel.addControl(slider);
 
 
+    // SECOND WORLD //
+
+    // Our built-in 'sphere' shape. Params: name, subdivs, size, scene
+    var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
+    sphere.position = new BABYLON.Vector3(5000, 600, 50)
+
+
+    var skybox2 = BABYLON.Mesh.CreateBox("BackgroundSkybox", 1000, scene, undefined, BABYLON.Mesh.BACKSIDE);
+    
+    // Create and tweak the background material.
+    var backgroundMaterial2 = new BABYLON.BackgroundMaterial("backgroundMaterial", scene);
+    backgroundMaterial2.reflectionTexture = new BABYLON.CubeTexture("textures/TropicalSunnyDay", scene);
+    backgroundMaterial2.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+    skybox2.material = backgroundMaterial2;
+
+
+    skybox2.position = new BABYLON.Vector3(5000, 600, 50)
+
+
+
+    // BUTTON //
+    const advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+
+    const button = BABYLON.GUI.Button.CreateSimpleButton('myBtn', 'Change of world!');
+    button.width = '200px';
+    button.height = '40px';
+    button.top = '440px'
+    button.color = 'white';
+    button.background = 'black' 
+    button.onPointerUpObservable.add(function(){
+        camera2 = new BABYLON.ArcRotateCamera("Camera", 3 * Math.PI / 4, Math.PI / 4, 4, new BABYLON.Vector3(5000, 600, 50), scene);
+        camera2.attachControl(canvas, true);
+        scene.activeCamera = camera2;
+    })
+
+    advancedTexture.addControl(button);
 
 
 
