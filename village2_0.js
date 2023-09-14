@@ -11,7 +11,10 @@ const createScene =  () => {
     const camera2 = new BABYLON.ArcRotateCamera("Camera",-Math.PI / 4, Math.PI / 2, 9, new BABYLON.Vector3(5000, 600, 500), scene);
     camera2.attachControl(canvas, true);
 
+    // MUSIC //
 
+    // Load the sound and play it automatically once ready
+    // var music = new BABYLON.Sound("Violons", "sounds/violons11.wav", scene, null, { loop: true, autoplay: true });
 
 
 
@@ -944,27 +947,106 @@ const createScene =  () => {
     scene.beginDirectAnimation(camera, [movein, rotate], 0, 25 * frameRate, false);
 
 
+
+
+
+
+
+
+
+
+
     // SECOND WORLD //
 
+
+
+
+
+
+
+
+
+
+
+
     // Our built-in 'sphere' shape. Params: name, subdivs, size, scene
-    var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
-    sphere.position = new BABYLON.Vector3(5000, 600, 500)
+    // var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
+    // sphere.position = new BABYLON.Vector3(5000, 600, 500)
 
 
-    var skybox2 = BABYLON.Mesh.CreateBox("BackgroundSkybox", 1000, scene, undefined, BABYLON.Mesh.BACKSIDE);
+    // var skybox2 = BABYLON.Mesh.CreateBox("BackgroundSkybox", 1000, scene, undefined, BABYLON.Mesh.BACKSIDE);
     
-    // Create and tweak the background material.
-    var backgroundMaterial2 = new BABYLON.BackgroundMaterial("backgroundMaterial", scene);
-    backgroundMaterial2.reflectionTexture = new BABYLON.CubeTexture("textures/TropicalSunnyDay", scene);
-    backgroundMaterial2.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
-    skybox2.material = backgroundMaterial2;
+    // // Create and tweak the background material.
+    // var backgroundMaterial2 = new BABYLON.BackgroundMaterial("backgroundMaterial", scene);
+    // backgroundMaterial2.reflectionTexture = new BABYLON.CubeTexture("textures/TropicalSunnyDay", scene);
+    // backgroundMaterial2.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+    // skybox2.material = backgroundMaterial2;
+
+    // Skybox
+	// var skybox2 = BABYLON.MeshBuilder.CreateBox("skyBox", {size:1000.0}, scene);
+	// var skybox2Material = new BABYLON.StandardMaterial("skyBox", scene);
+	// skybox2Material.backFaceCulling = false;
+	// skybox2Material.reflectionTexture = new BABYLON.CubeTexture("textures/TropicalSunnyDay", scene);
+	// skybox2Material.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+	// skybox2Material.diffuseColor = new BABYLON.Color3(0, 0, 0);
+	// skybox2Material.specularColor = new BABYLON.Color3(0, 0, 0);
+	// skybox2.material = skybox2Material;
 
 
-    skybox2.position = new BABYLON.Vector3(5000, 600, 500)
+    // skybox2.position = new BABYLON.Vector3(5000, 600, 500)
 
 
+    // // SPHERE //
+	// var shape = BABYLON.MeshBuilder.CreateSphere("shape", {}, scene);
+	// var shapeMaterial = new BABYLON.StandardMaterial("mat", scene);
+	// shapeMaterial.backFaceCulling = true;
+	// shapeMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/TropicalSunnyDay", scene);
+	// shapeMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.PLANAR_MODE;
+	// shapeMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+	// shapeMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+	// shape.material = shapeMaterial;	
+	
+	// shape.rotation.y = Math.PI/8;
+	// shape.rotation.x = -Math.PI/8;	
+    // shape.position = new BABYLON.Vector3 = (5000, 600, 500);
 
+    
+    	// Skybox
+	var skybox2 = BABYLON.MeshBuilder.CreateBox("skyBox2", {size:1000.0}, scene);
+	var skybox2Material = new BABYLON.StandardMaterial("skyBox2", scene);
+	skybox2Material.backFaceCulling = false;
+	skybox2Material.reflectionTexture = new BABYLON.CubeTexture("textures/TropicalSunnyDay", scene);
+	skybox2Material.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+	skybox2Material.diffuseColor = new BABYLON.Color3(0, 0, 0);
+	skybox2Material.specularColor = new BABYLON.Color3(0, 0, 0);
+	skybox2.material = skybox2Material;	
+	
+	// Sphere
+	var shape = BABYLON.MeshBuilder.CreateSphere("shape", {}, scene);
+	var shapeMaterial = new BABYLON.StandardMaterial("mat", scene);
+	shapeMaterial.backFaceCulling = true;
+	shapeMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/TropicalSunnyDay", scene);
+	shapeMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.PLANAR_MODE;
+	shapeMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+	shapeMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+	shape.material = shapeMaterial;	
+	
+	shape.rotation.y = Math.PI/8;
+	shape.rotation.x = -Math.PI/8;		
+	    
+
+
+    skybox2.position = new BABYLON.Vector3(5000, 600, 500);
+    shape.position = new BABYLON.Vector3(5000, 600, 500);
+    
+    
+    
+    
+    
+    
     // BUTTON //
+
+
     const advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
 
     const button = BABYLON.GUI.Button.CreateSimpleButton('myBtn', 'Change of world!');
