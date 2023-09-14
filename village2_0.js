@@ -4,8 +4,12 @@ const createScene =  () => {
     const scene = new BABYLON.Scene(engine);
 
     // CAMERA
+    
     const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 15, new BABYLON.Vector3(0, 0, 0));
     camera.attachControl(canvas, true);
+    
+    const camera2 = new BABYLON.ArcRotateCamera("Camera",-Math.PI / 4, Math.PI / 2, 9, new BABYLON.Vector3(5000, 600, 500), scene);
+    camera2.attachControl(canvas, true);
 
 
 
@@ -706,11 +710,245 @@ const createScene =  () => {
     panel.addControl(slider);
 
 
+
+    
+    
+    // ANIMATIONS //
+
+
+
+
+
+    var frameRate = 200;
+    
+    
+    
+    var rotate = new BABYLON.Animation("rotate", "rotation.X", frameRate, BABYLON.Animation.ANIMATIONTYPE_FLOAT, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+	
+	var rotate_keys = []; 
+
+    rotate_keys.push({
+        frame: 0,
+        value: 0
+    });
+
+    rotate_keys.push({
+        frame: 9 * frameRate,
+        value: 0
+    });
+
+    rotate_keys.push({
+        frame: 14 * frameRate,
+        value: Math. PI
+    });
+    
+
+    rotate_keys.push({
+        frame: 19 * frameRate,
+        value: Math. PI
+    });
+    
+    rotate_keys.push({
+        frame: 24 * frameRate,
+        value: Math. PI
+    });
+    rotate_keys.push({
+        frame: 29 * frameRate,
+        value: Math. PI
+    });
+    
+    rotate_keys.push({
+        frame: 34 * frameRate,
+        value: Math. PI
+    });
+    
+    rotate_keys.push({
+        frame: 14 * frameRate,
+        value: Math. PI
+    });
+    
+    rotate_keys.push({
+        frame: 14 * frameRate,
+        value: Math. PI
+    });
+    
+    
+
+
+    rotate.setKeys(rotate_keys);
+	
+	//for camera move forward
+	var movein = new BABYLON.Animation("movein", "position", frameRate, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+	
+	var movein_keys = []; 
+
+    movein_keys.push({
+        frame: 0,
+        value: new BABYLON.Vector3(-5000, 0, 2000)
+    });
+
+    movein_keys.push({
+        frame: 3 * frameRate,
+        value: new BABYLON.Vector3(-1000, 0, 1500)
+    });
+
+    movein_keys.push({
+        frame: 5 * frameRate,
+        value: new BABYLON.Vector3(-500, -0, 1000)
+    });
+
+    movein_keys.push({
+        frame: 8 * frameRate,
+        value: new BABYLON.Vector3(-100, 0, 500)
+    });
+
+    movein_keys.push({
+        frame: 12 * frameRate,
+        value: new BABYLON.Vector3(-50, 0, 100)
+    });
+
+    
+
+    movein_keys.push({
+        frame: 15 * frameRate,
+        value: new BABYLON.Vector3(0, 0, 0)
+    });
+
+
+    movein_keys.push({
+        frame: 35 * frameRate,
+        value: new BABYLON.Vector3(15, 13, 8)
+    });
+
+
+
+
+    // console.log(movein_keys)
+    movein.setKeys(movein_keys);
+    
+	
+
+
+
+
+    
+	var movein2 = new BABYLON.Animation("movein2", "position", frameRate, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+	
+	var movein_keys2 = []; 
+
+    movein_keys2.push({
+        frame: 0,
+        value: new BABYLON.Vector3(15, 13, 8)
+    });
+
+    movein_keys2.push({
+        frame: 3 * frameRate,
+        value: new BABYLON.Vector3(0, 0, 0)
+    });
+
+    movein_keys2.push({
+        frame: 5 * frameRate,
+        value: new BABYLON.Vector3(-50, 0, 100)
+    });
+
+    movein_keys2.push({
+        frame: 8 * frameRate,
+        value: new BABYLON.Vector3(-100, 0, 500)
+    });
+
+    movein_keys2.push({
+        frame: 12 * frameRate,
+        value: new BABYLON.Vector3(-500, -0, 1000)
+    });
+
+    
+
+    movein_keys2.push({
+        frame: 15 * frameRate,
+        value: new BABYLON.Vector3(-1000, 0, 1500)
+    });
+
+
+    movein_keys2.push({
+        frame: 20* frameRate,
+        value: new BABYLON.Vector3(-5000, 0, 2000)
+    });
+
+
+
+
+
+    movein2.setKeys(movein_keys2);
+
+
+	//for camera move forward
+	var movein3 = new BABYLON.Animation("movein", "position", frameRate, BABYLON.Animation.ANIMATIONTYPE_VECTOR3, BABYLON.Animation.ANIMATIONLOOPMODE_CONSTANT);
+	
+	var movein3_keys = []; 
+
+    movein3_keys.push({
+        frame: 0,
+        value: new BABYLON.Vector3(-5000, 0, 2000)
+    });
+
+    movein3_keys.push({
+        frame: 3 * frameRate,
+        value: new BABYLON.Vector3(-3572, 100, 1500)
+    });
+
+    movein3_keys.push({
+        frame: 5 * frameRate,
+        value: new BABYLON.Vector3(-2144, 200, 1000)
+    });
+
+    movein3_keys.push({
+        frame: 8 * frameRate,
+        value: new BABYLON.Vector3(-716, 300, 800)
+    });
+
+    movein3_keys.push({
+        frame: 12 * frameRate,
+        value: new BABYLON.Vector3(712, 400, 700)
+    });
+
+    movein3_keys.push({
+        frame: 15 * frameRate,
+        value: new BABYLON.Vector3(2140, 400, 700)
+    });
+
+    
+
+    movein3_keys.push({
+        frame: 18 * frameRate,
+        value: new BABYLON.Vector3(3568, 500, 600)
+    });
+
+
+    movein3_keys.push({
+        frame: 25 * frameRate,
+        value: new BABYLON.Vector3(4980, 600, 500)
+    });
+
+
+
+
+    // console.log(movein_keys)
+    movein3.setKeys(movein3_keys);
+
+
+
+
+
+	/*******Run Clips**********/
+
+    scene.beginDirectAnimation(camera, [movein, rotate], 0, 25 * frameRate, false);
+
+
     // SECOND WORLD //
 
     // Our built-in 'sphere' shape. Params: name, subdivs, size, scene
     var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
-    sphere.position = new BABYLON.Vector3(5000, 600, 50)
+    sphere.position = new BABYLON.Vector3(5000, 600, 500)
 
 
     var skybox2 = BABYLON.Mesh.CreateBox("BackgroundSkybox", 1000, scene, undefined, BABYLON.Mesh.BACKSIDE);
@@ -722,7 +960,7 @@ const createScene =  () => {
     skybox2.material = backgroundMaterial2;
 
 
-    skybox2.position = new BABYLON.Vector3(5000, 600, 50)
+    skybox2.position = new BABYLON.Vector3(5000, 600, 500)
 
 
 
@@ -736,12 +974,20 @@ const createScene =  () => {
     button.color = 'white';
     button.background = 'black' 
     button.onPointerUpObservable.add(function(){
-        camera2 = new BABYLON.ArcRotateCamera("Camera", 3 * Math.PI / 4, Math.PI / 4, 4, new BABYLON.Vector3(5000, 600, 50), scene);
-        camera2.attachControl(canvas, true);
-        scene.activeCamera = camera2;
+        const nextAnimation = function () {
+            scene.beginDirectAnimation(scene.activeCamera = camera2, [movein3], 0, 25 * frameRate, false);
+            };
+        scene.beginDirectAnimation(camera, [movein2], 0, 25 * frameRate, false, 1, nextAnimation);
+                     
     })
 
     advancedTexture.addControl(button);
+
+    
+    
+
+
+	
 
 
 
