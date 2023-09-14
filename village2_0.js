@@ -7,14 +7,24 @@ const createScene =  () => {
     const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 15, new BABYLON.Vector3(0, 0, 0));
     camera.attachControl(canvas, true);
 
+
+
+
+
     // LIGHT
-    const light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(1, 1, 0));
-    light.intensity = 0.2
+    const  light = new BABYLON.DirectionalLight("dir01", new BABYLON.Vector3(0, -1, 1), scene);
+    light.position = new BABYLON.Vector3(0, 50, -100);
+    light.intensity = 1;
 
     
+    // OMBRES
+
+    const shadowGenerator = new BABYLON.ShadowGenerator(1024, light);
+
+
+    // AXES
     
     new BABYLON.AxesViewer(scene, 5);
-
     const localAxes = new BABYLON.AxesViewer(scene, 1);
 
 
@@ -37,12 +47,7 @@ const createScene =  () => {
     largeGround.material = largeGroundMat;
     largeGround.position.y = -0.01;
     
-    /*const largeGround = BABYLON.MeshBuilder.CreateGroundFromHeightMap("largeGround", "https://assets.babylonjs.com/environments/villageheightmap.png", {width:190, height:190, subdivisions: 20, minHeight:0, maxHeight: 30});
-    
-    largeGroundMat = new BABYLON.StandardMaterial("largeGroundMat");
-    largeGroundMat.diffuseTexture = new BABYLON.Texture("https://assets.babylonjs.com/environments/valleygrass.png");
-
-    largeGround.material = largeGroundMat;*/
+    ground.receiveShadows = true;
 
 
 
@@ -102,7 +107,7 @@ const createScene =  () => {
 
 
     // Create a particle system
-    var particleSystem = new BABYLON.ParticleSystem("particles", 5000, scene);
+    var particleSystem = new BABYLON.ParticleSystem("particles", 50000, scene);
 
     //Texture of each particle
     particleSystem.particleTexture = new BABYLON.Texture("textures/flare.png", scene);
@@ -132,7 +137,7 @@ const createScene =  () => {
     particleSystem.blendMode = BABYLON.ParticleSystem.BLENDMODE_ONEONE;
 
     // Set the gravity of all particles
-    particleSystem.gravity = new BABYLON.Vector3(0, -9.81, 0);
+    particleSystem.gravity = new BABYLON.Vector3(0, -10.81, 0);
 
     // Direction of each particle after it has been emitted
     particleSystem.direction1 = new BABYLON.Vector3(-1, 8, 1);
@@ -144,8 +149,8 @@ const createScene =  () => {
 
     // Speed
     particleSystem.minEmitPower = 0.2;
-    particleSystem.maxEmitPower = 0.6;
-    particleSystem.updateSpeed = 0.01;
+    particleSystem.maxEmitPower = 0.5;
+    particleSystem.updateSpeed = 0.001;
 
     // Start the particle system
     particleSystem.start();
@@ -175,6 +180,10 @@ const createScene =  () => {
     }
 }
 
+    shadowGenerator.addShadowCaster(fountain, true);
+    
+
+
 
 
 
@@ -188,7 +197,7 @@ const createScene =  () => {
     detached_house.rotation.y = -Math.PI / 16;
     detached_house.position.x = -10;
     detached_house.position.z = 10;
-
+    shadowGenerator.addShadowCaster(detached_house, true);
 
 
 
@@ -201,7 +210,7 @@ const createScene =  () => {
     semi_house .rotation.y = -Math.PI / 16;
     semi_house.position.x = -4.5;
     semi_house.position.z = 3;
-
+    shadowGenerator.addShadowCaster(semi_house, true);
 
 
 
@@ -299,6 +308,7 @@ const createScene =  () => {
         houses[i].rotation.y = places[i][1];
         houses[i].position.x = places[i][2];
         houses[i].position.z = places[i][3];
+        shadowGenerator.addShadowCaster(houses[i], true);
     }
 
 
@@ -364,6 +374,10 @@ const createScene =  () => {
     car2.position.z = 60;
     car2.rotation.z = (-Math.PI / 2)*4;
 
+    shadowGenerator.addShadowCaster(car, true);
+    shadowGenerator.addShadowCaster(car2, true);
+
+
 
     /////ROUES/////
 
@@ -395,6 +409,11 @@ const createScene =  () => {
     wheelLF = wheelRF.clone("wheelLF");
     wheelLF.position.y = -0.2 - 0.035;
 
+    shadowGenerator.addShadowCaster(wheelRF, true);
+    shadowGenerator.addShadowCaster(wheelRB, true);
+    shadowGenerator.addShadowCaster(wheelLF, true);
+    shadowGenerator.addShadowCaster(wheelLB, true);
+
     // car2
 
     const wheelRB2 = BABYLON.MeshBuilder.CreateCylinder("wheelRB2", {diameter: 0.125, height: 0.05, faceUV : wheelUV, wrap : true})
@@ -414,6 +433,10 @@ const createScene =  () => {
     wheelLF2 = wheelRF2.clone("wheelLF2");
     wheelLF2.position.y = -0.2 - 0.035;
 
+    shadowGenerator.addShadowCaster(wheelRF2, true);
+    shadowGenerator.addShadowCaster(wheelRB2, true);
+    shadowGenerator.addShadowCaster(wheelLF2, true);
+    shadowGenerator.addShadowCaster(wheelLB2, true);
 
 
     // ANIMATION WHEELS //
@@ -565,11 +588,12 @@ const createScene =  () => {
         dude.position = new BABYLON.Vector3(-19, 0, -5);
         dude.rotate(BABYLON.Axis.Y, BABYLON.Tools.ToRadians(-95), BABYLON.Space.LOCAL);
         const startRotation = dude.rotationQuaternion.clone();    
-            
-        scene.beginAnimation(result.skeletons[0], 0, 100, true, 2.0);
+        
+   
+        scene.beginAnimation(result.skeletons[0], 0, 100, true, 1.5);
 
         let distance = 0;
-        let step = 0.010;
+        let step = 0.0015;
         let p = 0;
 
         scene.onBeforeRenderObservable.add(() => {
@@ -611,50 +635,76 @@ const createScene =  () => {
             }
 			
         })
+        shadowGenerator.addShadowCaster(dude, true);
+        shadowGenerator.addShadowCaster(dude2, true);
+        shadowGenerator.addShadowCaster(dude3, true);
+        
+
     });
 
 
 
     
-    // LAMP //
+    // LAMPS //
 
-    const lamp1 = buildLamp(new BABYLON.Vector3(4, 0, 4))
-    /*
-    const lampLight = new BABYLON.SpotLight("lampLight", BABYLON.Vector3.Zero(), new BABYLON.Vector3(0, -10, 0), Math.PI, 1, scene);
-    lampLight.diffuse = BABYLON.Color3.Yellow();
+    const lamp1 = buildLamp(new BABYLON.Vector3(4.5, 0, 4))
+    shadowGenerator.addShadowCaster(lamp1, true);
 
-	//shape to extrude
-	const lampShape = [];
-    for(let i = 0; i < 20; i++) {
-        lampShape.push(new BABYLON.Vector3(Math.cos(i * Math.PI / 10), Math.sin(i * Math.PI / 10), 0));
+
+    const lamps = [];
+    lamps[0] = buildLampClone(lamp1, new BABYLON.Vector3(5, 0, 9), 2);
+    lamps[1] = buildLampClone(lamp1, new BABYLON.Vector3(5.5, 0, 14), 3);
+    lamps[2] = buildLampClone(lamp1, new BABYLON.Vector3(5.5, 0, 19), 4);
+    lamps[3] = buildLampClone(lamp1, new BABYLON.Vector3(4.5, 0, -11), 5);
+    lamps[4] = buildLampClone(lamp1, new BABYLON.Vector3(4.5, 0, -16), 6);
+    lamps[5] = buildLampClone(lamp1, new BABYLON.Vector3(5, 0, -21), 7);
+    lamps[6] = buildLampClone(lamp1, new BABYLON.Vector3(5.5, 0, -26), 8);
+    lamps[7] = buildLampClone(lamp1, new BABYLON.Vector3(4.5, 0, -1), 9);
+    lamps[8] = buildLampClone(lamp1, new BABYLON.Vector3(4.5, 0, -6), 10);
+
+    for(let i = 0; i<lamps.length; i++){
+        shadowGenerator.addShadowCaster(lamps[i], true);
     }
-	lampShape.push(lampShape[0]); //close shape
 
-	//extrusion path
-    const lampPath = [];
-	lampPath.push(new BABYLON.Vector3(0, 0, 0));
-	lampPath.push(new BABYLON.Vector3(0, 10, 0));
-    for(let i = 0; i < 20; i++) {
-        lampPath.push(new BABYLON.Vector3(1 + Math.cos(Math.PI - i * Math.PI / 40), 10 + Math.sin(Math.PI - i * Math.PI / 40), 0));
-    }
-    lampPath.push(new BABYLON.Vector3(3, 11, 0));
 
-    const yellowMat = new BABYLON.StandardMaterial("yellowMat");
-    yellowMat.emissiveColor = BABYLON.Color3.Yellow();
 
-	//extrude lamp
-	const lamp = BABYLON.MeshBuilder.ExtrudeShape("lamp", {cap: BABYLON.Mesh.CAP_END, shape: lampShape, path: lampPath, scale: 0.5});
-	lamp.scaling = new BABYLON.Vector3(0.13, 0.13, 0.13)
-    lamp.position = new BABYLON.Vector3(4, 0 ,4)
-    //add bulb
-    const bulb = BABYLON.MeshBuilder.CreateSphere("bulb", {diameterX: 1.5, diameterZ: 0.8});
-    
-    bulb.material = yellowMat;
-    bulb.parent = lamp;
-    bulb.position.x = 2;
-    bulb.position.y = 10.5;
 
-    lampLight.parent = bulb;*/
+
+    // DAY OR NIGHT
+
+    const adt = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+
+    const panel = new BABYLON.GUI.StackPanel();
+    panel.width = "220px";
+    panel.top = "-25px";
+    panel.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_RIGHT;
+    panel.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_BOTTOM;
+    adt.addControl(panel);
+
+    const header = new BABYLON.GUI.TextBlock();
+    header.text = "Night to Day";
+    header.height = "30px";
+    header.color = "white";
+    panel.addControl(header); 
+
+    const slider = new BABYLON.GUI.Slider();
+    slider.minimum = 0;
+    slider.maximum = 1;
+    slider.borderColor = "black";
+    slider.color = "gray";
+    slider.background = "white";
+    slider.value = 1;
+    slider.height = "20px";
+    slider.width = "200px";
+    slider.onValueChangedObservable.add((value) => {
+        if (light) {
+            light.intensity = value;
+        }
+    });
+    panel.addControl(slider);
+
+
+
 
 
 
@@ -673,8 +723,15 @@ const createScene =  () => {
 
 
 
-
 // LAMPS
+
+
+const buildLampClone = (lamp, position, i) =>{
+    new_name = "lamp"+i;
+    const clone = lamp.clone(new_name);
+    clone.position = position;
+    return clone;
+}
 
 const buildLampLight = () => {
     const lampLight = new BABYLON.SpotLight("lampLight", BABYLON.Vector3.Zero(), new BABYLON.Vector3(0, -10, 0), Math.PI, 1);
