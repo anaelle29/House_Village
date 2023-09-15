@@ -8,7 +8,7 @@ const createScene =  () => {
     const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 15, new BABYLON.Vector3(0, 0, 0));
     camera.attachControl(canvas, true);
     
-    const camera2 = new BABYLON.ArcRotateCamera("Camera",-Math.PI / 4, Math.PI / 2, 9, new BABYLON.Vector3(5000, 600, 500), scene);
+    const camera2 = new BABYLON.ArcRotateCamera("Camera",-Math.PI / 4, Math.PI / 2, 89, new BABYLON.Vector3(5000, 600, 500), scene);
     camera2.attachControl(canvas, true);
 
     // MUSIC //
@@ -602,7 +602,7 @@ const createScene =  () => {
         scene.beginAnimation(result.skeletons[0], 0, 100, true, 1.5);
 
         let distance = 0;
-        let step = 0.002;
+        let step = 0.004;
         let p = 0;
 
         scene.onBeforeRenderObservable.add(() => {
@@ -855,25 +855,25 @@ const createScene =  () => {
     });
 
     movein_keys2.push({
-        frame: 8 * frameRate,
+        frame: 12 * frameRate,
         value: new BABYLON.Vector3(-100, 0, 500)
     });
 
     movein_keys2.push({
-        frame: 12 * frameRate,
+        frame: 15 * frameRate,
         value: new BABYLON.Vector3(-500, -0, 1000)
     });
 
     
 
     movein_keys2.push({
-        frame: 15 * frameRate,
+        frame: 20 * frameRate,
         value: new BABYLON.Vector3(-1000, 0, 1500)
     });
 
 
     movein_keys2.push({
-        frame: 20* frameRate,
+        frame: 25* frameRate,
         value: new BABYLON.Vector3(-5000, 0, 2000)
     });
 
@@ -895,41 +895,41 @@ const createScene =  () => {
     });
 
     movein3_keys.push({
-        frame: 3 * frameRate,
+        frame: 2 * frameRate,
         value: new BABYLON.Vector3(-3572, 100, 1500)
     });
 
     movein3_keys.push({
-        frame: 5 * frameRate,
+        frame: 3 * frameRate,
         value: new BABYLON.Vector3(-2144, 200, 1000)
     });
 
     movein3_keys.push({
-        frame: 8 * frameRate,
+        frame: 5 * frameRate,
         value: new BABYLON.Vector3(-716, 300, 800)
     });
 
     movein3_keys.push({
-        frame: 12 * frameRate,
+        frame: 6 * frameRate,
         value: new BABYLON.Vector3(712, 400, 700)
     });
 
     movein3_keys.push({
-        frame: 15 * frameRate,
+        frame: 8 * frameRate,
         value: new BABYLON.Vector3(2140, 400, 700)
     });
 
     
 
     movein3_keys.push({
-        frame: 18 * frameRate,
+        frame: 10 * frameRate,
         value: new BABYLON.Vector3(3568, 500, 600)
     });
 
 
     movein3_keys.push({
-        frame: 25 * frameRate,
-        value: new BABYLON.Vector3(4980, 600, 500)
+        frame: 15 * frameRate,
+        value: new BABYLON.Vector3(4995, 600, 500)
     });
 
 
@@ -945,7 +945,7 @@ const createScene =  () => {
 	/*******Run Clips**********/
 
     scene.beginDirectAnimation(camera, [movein, rotate], 0, 25 * frameRate, false);
-
+    music.stop();
 
 
 
@@ -957,58 +957,6 @@ const createScene =  () => {
 
 
     // SECOND WORLD //
-
-
-
-
-
-
-
-
-
-
-
-
-    // Our built-in 'sphere' shape. Params: name, subdivs, size, scene
-    // var sphere = BABYLON.Mesh.CreateSphere("sphere1", 16, 2, scene);
-    // sphere.position = new BABYLON.Vector3(5000, 600, 500)
-
-
-    // var skybox2 = BABYLON.Mesh.CreateBox("BackgroundSkybox", 1000, scene, undefined, BABYLON.Mesh.BACKSIDE);
-    
-    // // Create and tweak the background material.
-    // var backgroundMaterial2 = new BABYLON.BackgroundMaterial("backgroundMaterial", scene);
-    // backgroundMaterial2.reflectionTexture = new BABYLON.CubeTexture("textures/TropicalSunnyDay", scene);
-    // backgroundMaterial2.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
-    // skybox2.material = backgroundMaterial2;
-
-    // Skybox
-	// var skybox2 = BABYLON.MeshBuilder.CreateBox("skyBox", {size:1000.0}, scene);
-	// var skybox2Material = new BABYLON.StandardMaterial("skyBox", scene);
-	// skybox2Material.backFaceCulling = false;
-	// skybox2Material.reflectionTexture = new BABYLON.CubeTexture("textures/TropicalSunnyDay", scene);
-	// skybox2Material.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
-	// skybox2Material.diffuseColor = new BABYLON.Color3(0, 0, 0);
-	// skybox2Material.specularColor = new BABYLON.Color3(0, 0, 0);
-	// skybox2.material = skybox2Material;
-
-
-    // skybox2.position = new BABYLON.Vector3(5000, 600, 500)
-
-
-    // // SPHERE //
-	// var shape = BABYLON.MeshBuilder.CreateSphere("shape", {}, scene);
-	// var shapeMaterial = new BABYLON.StandardMaterial("mat", scene);
-	// shapeMaterial.backFaceCulling = true;
-	// shapeMaterial.reflectionTexture = new BABYLON.CubeTexture("textures/TropicalSunnyDay", scene);
-	// shapeMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.PLANAR_MODE;
-	// shapeMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
-	// shapeMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
-	// shape.material = shapeMaterial;	
-	
-	// shape.rotation.y = Math.PI/8;
-	// shape.rotation.x = -Math.PI/8;	
-    // shape.position = new BABYLON.Vector3 = (5000, 600, 500);
 
     
     	// Skybox
@@ -1060,11 +1008,14 @@ const createScene =  () => {
             scene.beginDirectAnimation(scene.activeCamera = camera2, [movein3], 0, 25 * frameRate, false);
             };
         scene.beginDirectAnimation(camera, [movein2], 0, 25 * frameRate, false, 1, nextAnimation);
-                     
+        music.stop()
+        // music = new BABYLON.Sound("Violons", "sounds/cellolong.wav", scene, null, {loop: 1, autoplay: true, length: 9.2, offset: 14.0 });
+        // music.play();
+
     })
-
+    music.stop();
     advancedTexture.addControl(button);
-
+    
     
     
 
